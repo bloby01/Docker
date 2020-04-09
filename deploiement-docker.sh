@@ -142,7 +142,7 @@ namedMonDom () {
 vrai="1"
 cat <<EOF > /var/named/mon.dom.db
 \$TTL 300
-@       IN SOA  master.mon.dom root.master.mon.dom. (
+@       IN SOA  master.mon.dom. root.master.mon.dom. (
               1       ; serial
               600      ; refresh
               900      ; retry
@@ -161,7 +161,7 @@ namedRevers () {
 vrai="1"
 cat <<EOF > /var/named/172.21.0.db
 \$TTL 300
-@       IN SOA  master.mon.dom root.master.mon.dom. (
+@       IN SOA  master.mon.dom. root.master.mon.dom. (
               1       ; serial
               600      ; refresh
               900      ; retry
@@ -413,7 +413,7 @@ fi
 
 ############################################################################################
 #                                                                                          #
-#                       Déploiement des workers Kubernetes                                 #
+#                       Déploiement des workers Swarm                                      #
 #                                                                                          #
 ############################################################################################
 if [ "${node}" = "worker" ]
