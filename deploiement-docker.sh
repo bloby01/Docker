@@ -62,16 +62,19 @@ verif(){
 # Fonction d'installation de docker EE version 18.9
 DOCKER(){
 vrai="1"
-export DOCKERURL=${docker_ee} && \
-echo  "7"  >  /etc/yum/vars/dockerosversion && \
-echo  "${DOCKERURL}/centos"  >  /etc/yum/vars/dockerurl && \
-yum-config-manager  --add-repo  "$DOCKERURL/centos/docker-ee.repo" && \
+#export DOCKERURL=${docker_ee} && \
+#echo  "7"  >  /etc/yum/vars/dockerosversion && \
+#echo  "${DOCKERURL}/centos"  >  /etc/yum/vars/dockerurl && \
+#yum-config-manager  --add-repo  "$DOCKERURL/centos/docker-ee.repo" && \
 #sed -i -e "s|enabled=1|enabled=0|g" /etc/yum.repos.d/docker-ee.repo && \
 #sed -i -e  "151 s|enabled=0|enabled=1|g" /etc/yum.repos.d/docker-ee.repo && \
-yum  install  -y   docker-ee && \
+yum install -y wget
+wget -O dockerinstall.sh https://get.docker.com
+sh dockerinstall.sh
+#yum  install  -y   docker-ee && \
 systemctl enable  --now docker.service && \
 vrai="0"
-nom="Installation de DOCKER-EE"
+nom="Déploiement de docker sur le noeud"
 verif
 }
 # Fonction de configuration des parametres communs du dhcp
@@ -242,12 +245,12 @@ vrai="0"
 nom="Construction du nom d hote et du fichier resolv.conf"
 verif
 fi
-vrai="1"
-echo -n "Collez l'URL de télechargement de Docker-EE: "
-read docker_ee && \
-vrai="0"
-nom="recuperation de l url de docker"
-verif
+#vrai="1"
+#echo -n "Collez l'URL de télechargement de Docker-EE: "
+#read docker_ee && \
+#vrai="0"
+#nom="recuperation de l url de docker"
+#verif
 #
 # Etape 2
 # Libre passage des flux in et out sur les interfaces réseaux
