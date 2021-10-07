@@ -1,0 +1,48 @@
+version: "3"
+services:
+  app:
+    image: jc21/registry-ui
+    ports:
+      - 80:80
+    environment:
+      - REGISTRY_HOST=registry
+      - REGISTRY_SSL=true
+      - REGISTRY_DOMAIN=docker.mon.dom
+      - REGISTRY_STORAGE_DELETE_ENABLED=
+      - REGISTRY_USER=toto
+      - REGISTRY_PASS=pass
+      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/rootca.crt
+      - REGISTRY_HTTP_TLS_KEY=/certs/rootca.key
+    links:
+      - registry
+    restart: on-failure
+
+  registry:
+    hostname: registry
+    image: registry:2
+    restart: always
+    volumes:
+      - type: volume
+        source: auth
+        target: /auth
+      - type: volume
+        source: certs
+        target: /certs
+      - type: volume
+        source: registry
+        target: /var/lib/registry
+    environment:
+      - REGISTRY_HTTP_SECRET=o43g2kjgn2iuhv2k4jn2f23f290qfgheof
+      - "REGISTRY_AUTH=htpasswd"
+      - "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm"
+      - REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
+      - REGISTRY_HTTP_ADDR=0.0.0.0:443
+      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/rootca.crt
+      - REGISTRY_HTTP_TLS_KEY=/certs/rootca.key
+    ports:
+      - 443:443
+      - 5000:5000
+volumes:
+  auth:
+  certs:
+  registry:
