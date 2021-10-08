@@ -33,8 +33,8 @@ services:
         target: /var/lib/registry
     environment:
       - REGISTRY_HTTP_SECRET=o43g2kjgn2iuhv2k4jn2f23f290qfgheof
-      - "REGISTRY_AUTH=htpasswd"
-      - "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm"
+      - REGISTRY_AUTH=htpasswd
+      - REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"
       - REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
       - REGISTRY_HTTP_ADDR=0.0.0.0:443
       - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/rootca.crt
